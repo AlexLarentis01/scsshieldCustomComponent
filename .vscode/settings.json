@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.exs": "elixir",
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "vector": "cpp"
+    }
+}
