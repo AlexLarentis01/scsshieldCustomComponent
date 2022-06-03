@@ -37,9 +37,6 @@ public:
         Serial.println("Setup");
         this->interfaccia->begin();
 
-    
-
-
         register_service(&MyCustomComponent::on_hello_world, "hello_world");
 
         register_service(&MyCustomComponent::on_start_washer_cycle, "start_washer_cycle",
