@@ -1,18 +1,19 @@
 #include "esphome.h"
-#include "Interfaccia.h" 
+#include "Interfaccia.h"
+#include <Arduino.h>
+class MyCustomComponent : public Component
+{
+private:
+    Interfaccia interfaccia = new Interfaccia(D7, D6);
 
-class MyCustomComponent : public Component {
- public:
-  void setup() override {
-    // Setup the component
-
-
-
-  }
-  void loop() override {
-    // This is called every loop
-
-
-    
-  }
+public:
+    void setup() override
+    {
+        Serial.println("Setup");
+        this->interfaccia.begin();
+    }
+    void loop() override
+    {
+        // This is called every loop
+    }
 };
