@@ -1,0 +1,90 @@
+esphome:
+  name: scs-gate
+  includes: ./scsshieldCustomComponent/src/scs-gate.h
+  libraries:
+  #  Libraries for Bitcino SCS bus
+    - http://scsshields.altervista.org/file/espsoftwareserial.zip
+    - http://scsshields.altervista.org/file/Biticino_Interfaccia.zip
+
+esp8266:
+  board: nodemcu
+
+# Enable logging
+logger:
+
+ota:
+  password: ""
+
+wifi:
+  ssid: "NonnaNetz"
+  password: "NetzNonna1"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "SCS GATE"
+    password: "nFU9fNBcAF76"
+
+api:
+
+    # SCSCover* master_bedroom = new SCSCover(interfaccia);
+    # SCSCover* master_bedroom_door = new SCSCover(interfaccia);
+
+    # master_bedroom->setup(1, 7);
+    # master_bedroom_door->setup(1, 8);
+
+    # App.register_component(master_bedroom);
+    # App.register_component(master_bedroom_door);
+
+cover:
+- platform: custom
+  lambda: |-
+    Interfaccia* interfaccia = new Interfaccia(D7, D6);
+
+    SCSCover* entrence_door = new SCSCover(interfaccia);
+    SCSCover* livingroom_window = new SCSCover(interfaccia);
+    SCSCover* livingroom_door = new SCSCover(interfaccia);
+    SCSCover* hall_door = new SCSCover(interfaccia);
+    SCSCover* wc_window = new SCSCover(interfaccia);
+    SCSCover* guest_room = new SCSCover(interfaccia);
+    SCSCover* master_bedroom = new SCSCover(interfaccia);
+    SCSCover* master_bedroom_door = new SCSCover(interfaccia);
+
+
+    wc_window->setup(           1, 1, 14, 15);
+    guest_room->setup(          1, 2, 24, 27);
+    hall_door->setup(           1, 4, 22, 23);
+    master_bedroom->setup(      1, 3, 24, 27);
+    master_bedroom_door->setup( 1, 7, 24, 27);
+    livingroom_door->setup(     1, 5, 62, 64);
+    livingroom_window->setup(   1, 6, 62, 64); 
+    entrence_door->setup(       1, 8, 60, 60);
+
+    App.register_component(entrence_door);
+    App.register_component(livingroom_window);
+    App.register_component(livingroom_door);
+    App.register_component(hall_door);
+    App.register_component(wc_window);
+    App.register_component(guest_room);
+    App.register_component(master_bedroom);
+    App.register_component(master_bedroom_door);
+    
+
+    return {entrence_door, livingroom_window, livingroom_door, hall_door, wc_window, guest_room, master_bedroom, master_bedroom_door};
+
+  covers:
+    - name: "entrence_door"
+      id: "entrence_door"
+    - name: "livingroom_window"
+      id: "livingroom_window"
+    - name: "livingroom_door"
+      id: "livingroom_door"
+    - name: "hall_door"
+      id: "hall_door"
+    - name: "wc_window"
+      id: "wc_window"
+    - name: "guest_room"
+      id: "guest_room"
+    - name: "master_bedroom"
+      id: "master_bedroom"
+    - name: "master_bedroom_door"
+      id: "master_bedroom_door"
